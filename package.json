@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "fluent-ffmpeg": "^2.1.2",
+    "mongoose": "^6.4.1",
+    "node-schedule": "^2.1.0",
     "puppeteer": "^15.1.1"
   }
 }
