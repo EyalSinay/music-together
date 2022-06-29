@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 mongoose
   .connect(
-    `mongodb+srv://ofer_bank:${PASSWORD}@ofer-bank.0lrwfds.mongodb.net/?retryWrites=true&w=majority`,
+    `mongodb+srv://musictogether:${PASSWORD}@music-together.efqwjnw.mongodb.net/?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
     }
