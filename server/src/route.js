@@ -11,7 +11,7 @@ const loadData = () => {
   return JSON.parse(dataJSON);
 }
 
-route.get('/:continent', async (req, res) => {
+route.get('server/:continent', async (req, res) => {
   const continent = req.params.continent;
   const data = loadData();
   const allCountries = data[continent].map(el => el.englishCountryName)
@@ -33,7 +33,7 @@ route.get('/:continent', async (req, res) => {
 
 
 
-route.get('/:continent/:country', async (req, res) => {
+route.get('server/:continent/:country', async (req, res) => {
   const continent = req.params.continent;
   const country = req.params.country;
   const data = loadData();
