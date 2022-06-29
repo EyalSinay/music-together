@@ -21,8 +21,9 @@ const countrySchema = new mongoose.Schema({
             songName: { type: String, required: true },
             songArtist: { type: String, required: true },
             songPath: { type: String, required: true },
-            like: { type: Number },
-            dislike: { type: Number },
+            imgPath: String,
+            like: Number,
+            dislike: Number,
         }
     ]
 });
@@ -42,38 +43,56 @@ const runPuppeteer = async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    const continents = ['asia', 'africa', 'oceania', 'europe', 'north-america', 'south-america'];
+    const continents = [
+        'asia',
+        'africa',
+        'oceania',
+        'europe',
+        'north-america',
+        'south-america'
+    ];
 
     for (let continent of continents) {
-        // get all countries hrefs of region:
         await page.goto(`https://folkcloud.com/folk-music/${continent}`);
         const countriesHrefs = await page.$$eval('.fadeCountryCell > span > a', as => as.map(a => a.href));
 
         for (let countryHref of countriesHrefs) {
             const countryName = countryHref.split("/").pop();
+
+            await page.goto(countryHref);
+            const englishBody = await page.$$eval('h1 ~ div:not([class])', el => el.map(div => div.innerText));
+            const paragraphs = englishBody.filter(p => p !== '\n');
+
+            const songsHrefs = await page.$$eval('a.GridLink', as => as.map(a => a.href));
+            const songs = [];
+            for (let song of songsHrefs) {
+                await page.goto(song);
+                const songMp3 = await page.$$eval('[value^="https"][value$=".mp3"]', el => el.map(input => input.value));
+                const imgs = await page.$$eval('.img-responsive', el => el.map(img => img.src));
+                const img = imgs.find(el => el.includes('images/artists'));
+                const sName = await page.$$eval('[itemprop="name"]', el => el.map(span => span.innerText));
+                const aName = await page.$$eval('[itemprop="creator"]', el => el.map(span => span.innerText));
+                songs.push({
+                    songName: sName[0],
+                    songArtist: aName[0],
+                    songPath: songMp3[0],
+                    imgPath: img,
+                    like: 0,
+                    dislike: 0,
+                });
+            }
+
             const countryArr = [{
                 englishCountryName: countryName,
-                englishBody: []
+                englishBody: paragraphs,
+                songsList: songs
             }];
+            console.log(countryArr)
         }
-
     }
-    //     // get all songs hrefs of the first country:
-    //     await page.goto(countriesHrefs[0]);
-    //     const songsHrefs = await page.$$eval('a.GridLink', as => as.map(a => a.href));
-
-    //     // get the mp3 href of the first song:
-    //     await page.goto(songsHrefs[0]);
-    //     const mp3Href1 = await page.$$eval('[value^="https"][value$=".mp3"]', el => el.map(input => input.value));
-    //     await page.goto(songsHrefs[1]);
-    //     const mp3Href2 = await page.$$eval('[value^="https"][value$=".mp3"]', el => el.map(input => input.value));
-
-    // console.log(mp3Href1[0]);
-    // console.log(mp3Href2[0]);
-
     await browser.close();
 }
-// runPuppeteer();
+runPuppeteer();
 
 module.exports = {
     runPuppeteer
@@ -94,7 +113,5 @@ module.exports = {
 // mongo_user_name: musictogether
 // passwords: 1q2w3e!Q!
 // mongodb+srv://musictogether:<password>@music-together.efqwjnw.mongodb.net/?retryWrites=true&w=majority
-
-
 
 
