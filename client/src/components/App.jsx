@@ -1,5 +1,10 @@
+import Home from "./home/Home.js";
+
+
 function App() {
-  return <h1>App</h1>;
+  return (
+    <Home/>
+  );
 }
 
 export default App;

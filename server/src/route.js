@@ -4,7 +4,6 @@ const translate = require('./utils/translate.js')
 const route = express.Router();
 // const { Router } = require('express');
 
-
 // ---------------DEMO_ROUTS:---------------
 // const fs = require('fs');
 // const loadData = () => {
@@ -13,7 +12,7 @@ const route = express.Router();
 // }
 
 route.get('/server', async (req, res) => {
-  res.send("server is running");
+  res.send('server is running');
 });
 
 route.get('/server/:continent', async (req, res) => {
