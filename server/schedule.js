@@ -1,6 +1,12 @@
 const puppeteer = require('puppeteer');
 const Info = require('./mongodb/models/info_module.js');
 
+// const fs = require('fs');
+// const saveData = (data) => {
+//     const newDataJSON = JSON.stringify(data);
+//     fs.writeFileSync(__dirname + '/dataJSON.json', newDataJSON, 'utf-8');
+// }
+
 const runPuppeteer = async () => {
     console.log("RUN!!!!!!");
     const browser = await puppeteer.launch();
@@ -57,6 +63,7 @@ const runPuppeteer = async () => {
     }
     const info = new Info(object);
     await info.save();
+
     console.log("DONE!!!!!!");
     await browser.close();
 }

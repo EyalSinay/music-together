@@ -54,14 +54,6 @@ route.get('/server/:continent/:country', async (req, res) => {
     songsList: countryObj.songsList
   }
 
-  // const countryTranslated = countryObj.map(el => {
-  //   return {
-  //     countryName: el.englishCountryName,
-  //     translateName: translate(el.englishCountryName, lang),
-  //     body: el.englishBody.map(p => translate(p, lang)),
-  //   }
-  // })
-
   try {
     res.status(200).send(countryTranslated);
   } catch (e) {
