@@ -1,4 +1,4 @@
-const PASSWORD = require('../config/password');
+const { PASSWORD } = require('../config/password');
 const mongoose = require('mongoose');
 
 mongoose
