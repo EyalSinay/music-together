@@ -1,11 +1,11 @@
 const puppeteer = require('puppeteer');
-const Info = require('./mongodb/models/info_module.js');
+const Country = require('./mongodb/models/country_module.js');
 
-const fs = require('fs');
-const saveData = (data) => {
-    const newDataJSON = JSON.stringify(data);
-    fs.writeFileSync(__dirname + '/dataJSON.json', newDataJSON, 'utf-8');
-}
+// const fs = require('fs');
+// const saveData = (data) => {
+//     const newDataJSON = JSON.stringify(data);
+//     fs.writeFileSync(__dirname + '/dataJSON.json', newDataJSON, 'utf-8');
+// }
 
 const runPuppeteer = async () => {
     console.log("RUN!!!!!!");
@@ -26,7 +26,7 @@ const runPuppeteer = async () => {
     for (let continent of continents) {
         const countryArr = [];
 
-        await page.goto(`https://folkcloud.com/folk-music/${continent}`);
+        await page.goto("https://folkcloud.com/folk-music/" + continent);
         const countriesHrefs = await page.$$eval('.fadeCountryCell > span > a', as => as.map(a => a.href));
 
         for (let i = 0; i < 3 && i < countriesHrefs.length; i++) {
@@ -53,18 +53,25 @@ const runPuppeteer = async () => {
                 });
             }
 
-            countryArr.push({
+            // countryArr.push({
+            //     englishCountryName: countryName,
+            //     englishBody: paragraphs,
+            //     songsList: songs
+            // });
+            const countryEl = new Country({
+                continentName: continent,
                 englishCountryName: countryName,
                 englishBody: paragraphs,
                 songsList: songs
             });
+            await countryEl.save();
         }
-        object[continent] = countryArr;
+        // object[continent] = countryArr;
     }
     // const info = new Info(object);
     // await info.save();
 
-    saveData(object)
+    // saveData(object)
 
     console.log("DONE!!!!!!");
     await browser.close();
