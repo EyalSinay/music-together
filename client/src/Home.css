@@ -1,0 +1,19 @@
+.Header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: grey
+}
+button{
+    margin-left: 1rem;
+}
+.webDescriptionHe{
+    width: 90%;
+    text-align: center;
+    margin: auto;
+}
+.webDescriptionAr{
+    width: 90%;
+    text-align: center;
+    margin: auto;
+}

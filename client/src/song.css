@@ -1,0 +1,8 @@
+.songs{
+    border: 1px solid black;
+}
+
+.SongsList{
+    display: flex;
+    flex-direction: row;
+}
