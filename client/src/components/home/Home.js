@@ -10,7 +10,7 @@ const Home = () => {
   const [continent, setContinent] = useState("");
 
   const updatePage = (lang, continent) => {
-    console.log(continent);
+    console.log(continent, lang);
     setLang(lang);
     setContinent(continent);
   };

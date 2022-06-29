@@ -1,13 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./navbar.css";
 function Navbar({ updatePage }) {
   const [lang, setLang] = useState("he");
   const [continentName, setContinentName] = useState("");
   const [showContInfo, setShowContInfo] = useState(false);
   const [translatedContinent, setTranslatedContinent] = useState("");
+  const [showDes, setShowDes] = useState(true);
 
-  console.log(translatedContinent);
   //     const translateCont = (e) => {
   //       setContinentName(e.target.innerText);
   //       setShowContInfo(true);
@@ -21,11 +21,21 @@ function Navbar({ updatePage }) {
   //       console.log(translatedContinent);
   //     }
   //   };
+
+  useEffect(() => {
+    updatePage(lang, translatedContinent);
+  }, [lang]);
+
   const ChangeLanguageHe = () => {
     setLang("he");
   };
   const ChangeLanguageAr = () => {
     setLang("ar");
+  };
+
+  const intialPage = () => {
+    setShowDes(true);
+    updatePage(lang, "");
   };
   return (
     <div>
@@ -38,6 +48,8 @@ function Navbar({ updatePage }) {
           <div className="continents">
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("africa");
                 updatePage(lang, "africa");
               }}
             >
@@ -45,6 +57,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("europe");
                 updatePage(lang, "europe");
               }}
             >
@@ -52,6 +66,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("south america");
                 updatePage(lang, "south america");
               }}
             >
@@ -59,6 +75,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("north america");
                 updatePage(lang, "north america");
               }}
             >
@@ -66,6 +84,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("asia");
                 updatePage(lang, "asia");
               }}
             >
@@ -73,10 +93,12 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("oceana");
                 updatePage(lang, "oceana");
               }}
             >
-              אוקיאנא
+              אוקיאנה
             </button>
           </div>
         )}
@@ -84,6 +106,8 @@ function Navbar({ updatePage }) {
           <div className="continents">
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("africa");
                 updatePage(lang, "africa");
               }}
             >
@@ -91,6 +115,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("europe");
                 updatePage(lang, "europe");
               }}
             >
@@ -98,6 +124,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("south america");
                 updatePage(lang, "south america");
               }}
             >
@@ -105,6 +133,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("north america");
                 updatePage(lang, "north america");
               }}
             >
@@ -112,6 +142,8 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
+                setShowDes(false);
+                setTranslatedContinent("asia");
                 updatePage(lang, "asia");
               }}
             >
@@ -119,7 +151,9 @@ function Navbar({ updatePage }) {
             </button>
             <button
               onClick={() => {
-                updatePage("oceana");
+                setShowDes(false);
+                setTranslatedContinent("oceana");
+                updatePage(lang, "oceana");
               }}
             >
               اوكيانا
@@ -127,11 +161,11 @@ function Navbar({ updatePage }) {
           </div>
         )}
         <div>
-          <h3>Logo</h3>
+          <h3 onClick={intialPage}>Logo</h3>
         </div>
       </div>
       {showContInfo && <div>{continentName}</div>}
-      {lang === "he" && (
+      {lang === "he" && showDes && (
         <div className="webDescriptionHe">
           <h1>על מה האתר הזה?</h1>
           <p>
@@ -163,7 +197,7 @@ function Navbar({ updatePage }) {
           </p>
         </div>
       )}
-      {lang === "ar" && (
+      {lang === "ar" && showDes && (
         <div className="webDescriptionAr">
           <h1>ما هو موضوع هذا الموقع ؟</h1>
           <p>
