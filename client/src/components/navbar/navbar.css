@@ -1,0 +1,9 @@
+.Header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: grey
+}
+button{
+    margin-left: 1rem;
+}
