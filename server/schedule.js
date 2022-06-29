@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const Info = require('./mongodb/models/info_module.js');
+const Country = require('./mongodb/models/country_module.js');
 
 // const fs = require('fs');
 // const saveData = (data) => {
@@ -26,17 +26,17 @@ const runPuppeteer = async () => {
     for (let continent of continents) {
         const countryArr = [];
 
-        await page.goto(`https://folkcloud.com/folk-music/${continent}`);
+        await page.goto("https://folkcloud.com/folk-music/" + continent);
         const countriesHrefs = await page.$$eval('.fadeCountryCell > span > a', as => as.map(a => a.href));
 
-        for (let i = 0; i < 1 && i < countriesHrefs.length; i++) {
+        for (let i = 0; i < 3 && i < countriesHrefs.length; i++) {
             const countryName = countriesHrefs[i].split("/").pop();
             await page.goto(countriesHrefs[i]);
             const englishBody = await page.$$eval('h1 ~ div:not([class])', el => el.map(div => div.innerText));
             const paragraphs = englishBody.filter(p => p !== '\n');
             const songsHrefs = await page.$$eval('a.GridLink', as => as.map(a => a.href));
             const songs = [];
-            for (let j = 0; j < 1 && j < songsHrefs.length; j++) {
+            for (let j = 0; j < 3 && j < songsHrefs.length; j++) {
                 await page.goto(songsHrefs[j]);
                 const songMp3 = await page.$$eval('[value^="https"][value$=".mp3"]', el => el.map(input => input.value));
                 const imgs = await page.$$eval('.img-responsive', el => el.map(img => img.src));
@@ -53,16 +53,25 @@ const runPuppeteer = async () => {
                 });
             }
 
-            countryArr.push({
+            // countryArr.push({
+            //     englishCountryName: countryName,
+            //     englishBody: paragraphs,
+            //     songsList: songs
+            // });
+            const countryEl = new Country({
+                continentName: continent,
                 englishCountryName: countryName,
                 englishBody: paragraphs,
                 songsList: songs
             });
+            await countryEl.save();
         }
-        object[continent] = countryArr;
+        // object[continent] = countryArr;
     }
-    const info = new Info(object);
-    await info.save();
+    // const info = new Info(object);
+    // await info.save();
+
+    // saveData(object)
 
     console.log("DONE!!!!!!");
     await browser.close();

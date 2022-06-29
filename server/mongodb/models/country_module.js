@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const countrySchema = new mongoose.Schema({
-    englishCountryName: { type: String, required: true },
-    englishBody: [{ type: String, required: true }],
+    continentName: { type: String },
+    englishCountryName: { type: String },
+    englishBody: [{ type: String }],
     hebrewCountryName: { type: String },
     hebrewBody: [{ type: String }],
     arabicCountryName: { type: String },
@@ -19,16 +20,6 @@ const countrySchema = new mongoose.Schema({
     ]
 });
 
-const infoSchema = new mongoose.Schema({
-    asia: [countrySchema],
-    africa: [countrySchema],
-    oceania: [countrySchema],
-    europe: [countrySchema],
-    northAmerica: [countrySchema],
-    southAmerica: [countrySchema],
-});
+const Country = mongoose.model('Country', countrySchema);
 
-
-const Info = mongoose.model('Info', infoSchema);
-
-module.exports = Info;
+module.exports = Country;
