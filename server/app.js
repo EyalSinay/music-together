@@ -5,6 +5,9 @@ const route = require('./src/route');
 const path = require('path');
 require('./mongodb/mongoose');
 
+const {runPuppeteer} = require('./schedule.js');
+// runPuppeteer();
+
 const PORT = process.env.PORT || 5000;
 
 const app = express();
