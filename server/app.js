@@ -3,7 +3,7 @@ const cors = require('cors');
 const schedule = require('node-schedule');
 const route = require('./src/route');
 const path = require('path');
-// require('./mongodb/mongoose');
+require('./mongodb/mongoose');
 
 const { runPuppeteer } = require('./schedule.js');
 // runPuppeteer();
