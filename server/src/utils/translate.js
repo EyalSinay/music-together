@@ -1,7 +1,8 @@
 const axios = require('axios');
-const RapidAPI_KEY = require('../../config/password');
+const {RapidAPI_KEY} = require('../../config/password');
 
 const translate = async (text, lang) => {
+  try{
   const options = {
     method: 'POST',
     url: 'https://microsoft-translator-text.p.rapidapi.com/translate',
@@ -20,8 +21,10 @@ const translate = async (text, lang) => {
   };
 
   const data = await axios.request(options);
-
   return data.data[0].translations[0].text;
+}catch{
+  return "לאאאאאאאאאאא"
+}
 };
 
 module.exports = translate;
