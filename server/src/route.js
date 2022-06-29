@@ -26,7 +26,7 @@ route.get('/server/:continent', async (req, res) => {
     const allCountriesTranslated = [];
     for (let country of allCountries) {
       const translatedCountry = await translate(country, lang);
-      allCountriesTranslated.push({ countryName: country, translate: translatedCountry });
+      allCountriesTranslated.push({ countryName: country, translate: translatedCountry, numOfSongs: 3 });
     }
 
     res.status(200).send(allCountriesTranslated);
