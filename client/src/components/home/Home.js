@@ -7,17 +7,18 @@ export const LangContext = createContext("he");
 
 const Home = () => {
   const [lang, setLang] = useState("he");
-  const [continenet, setContinenet] = useState(null);
+  const [continent, setContinent] = useState("");
 
-  const updatePage = (lang, continenet) => {
+  const updatePage = (lang, continent) => {
+    console.log(continent);
     setLang(lang);
-    setContinenet(continenet);
+    setContinent(continent);
   };
 
   return (
     <div>
       <Navbar updatePage={updatePage} />
-      <ConInfo lang={lang} continent={continenet} />
+      <ConInfo lang={lang} continent={continent} />
     </div>
   );
 };
