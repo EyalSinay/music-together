@@ -26,6 +26,7 @@ const Home = () => {
   };
 
   const fetchContryData = async () => {
+    // if (!route.region || !route.contry) return;
     try {
       setIsSpinner(true);
 
@@ -39,6 +40,7 @@ const Home = () => {
   };
 
   const fetchContinantData = async () => {
+    // if (!route.region || !route.contry) return;
     try {
       setIsSpinner(true);
       const data = await getContinent(route.region, lang);
@@ -54,6 +56,7 @@ const Home = () => {
     switch (route.type) {
       case 'continant':
         fetchContinantData();
+        break;
       case 'contry':
         fetchContryData();
         break;
