@@ -16,6 +16,10 @@ const Home = () => {
   });
   const [isSpinner, setIsSpinner] = useState(false);
 
+  const setHome = () => {
+    setRoute({ type: 'welcome', region: undefined, contry: undefined });
+  };
+
   const setContinant = (continant) => {
     setRoute({ type: 'continant', region: continant });
   };
@@ -69,7 +73,12 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar lang={lang} setContinant={setContinant} setLang={setLang} />
+      <Navbar
+        lang={lang}
+        setContinant={setContinant}
+        setLang={setLang}
+        setHome={setHome}
+      />
       {route.type === 'welcome' && <Welcome data={dataToDisplay} lang={lang} />}
       {route.type === 'continant' && (
         <ConInfo data={dataToDisplay} setContry={setContry} />
