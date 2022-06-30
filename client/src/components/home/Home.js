@@ -21,13 +21,15 @@ const Home = () => {
   };
 
   const setContry = (contry) => {
-    setRoute({ type: 'contry', contry: contry });
+    const { region } = { ...route };
+    setRoute({ type: 'contry', contry, region });
   };
 
   const fetchContryData = async () => {
     try {
       setIsSpinner(true);
-      const data = await getCountry(route.region, route.Contry, lang);
+
+      const data = await getCountry(route.region, route.contry, lang);
       setDdataToDisplay(data);
     } catch (e) {
       console.warn(e);

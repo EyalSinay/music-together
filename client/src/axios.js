@@ -14,6 +14,9 @@ export const getContinent = async (continent, language) => {
 };
 
 export const getCountry = async (continent, country, language) => {
+  console.log('Contintnt:', continent);
+  console.log('Contry:', country);
+  console.log('lang:', language);
   try {
     const result = await axios.get(
       URL + continent + '/' + country + '?lang=' + language
