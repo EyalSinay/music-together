@@ -1,14 +1,17 @@
 import React from 'react';
 import staticInfo from '../home/home_data';
 
-import './navbar.css';
 function Navbar({ setContinant, setLang, lang }) {
   const mapButtens = () => {
     const buttons = [];
 
     for (const continant in staticInfo[lang].buttons) {
       buttons.push(
-        <button key={continant} onClick={() => setContinant(continant)}>
+        <button
+          className="item"
+          key={continant}
+          onClick={() => setContinant(continant)}
+        >
           {staticInfo[lang].buttons[continant]}
         </button>
       );
@@ -18,12 +21,15 @@ function Navbar({ setContinant, setLang, lang }) {
   };
 
   return (
-    <div>
+    <div className="ui inverted segment">
       <div className="Header">
-        <div>
-          <button onClick={() => setLang('he')}>HE</button>
-          <button onClick={() => setLang('ar')}>AR</button>
-        </div>
+        <a className="ui button" onClick={() => setLang('he')}>
+          HE
+        </a>
+        <button className="ui button" onClick={() => setLang('ar')}>
+          AR
+        </button>
+
         {mapButtens()}
 
         <div>
@@ -35,3 +41,19 @@ function Navbar({ setContinant, setLang, lang }) {
 }
 
 export default Navbar;
+
+{
+  /* 
+  <div className="ui inverted secondary pointing menu">
+    <a className="active item">
+      Home
+    </a>
+    <a className="item">
+      Messages
+    </a>
+    <a className="item">
+      Friends
+    </a>
+  </div>
+</div> */
+}
