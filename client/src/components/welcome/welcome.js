@@ -1,8 +1,8 @@
-const Welcome = ({ data, lang }) => {
+const Welcome = ({ data }) => {
   return (
     <div>
-      <h1>{data[lang].title}</h1>
-      <p>{data[lang].desc}</p>
+      <h1>{data.title}</h1>
+      <p>{data.desc}</p>
     </div>
   );
 };
