@@ -21,13 +21,16 @@ const Home = () => {
   };
 
   const setContry = (contry) => {
-    setRoute({ type: 'contry', contry: contry });
+    const { region } = { ...route };
+    setRoute({ type: 'contry', contry, region });
   };
 
   const fetchContryData = async () => {
+    // if (!route.region || !route.contry) return;
     try {
       setIsSpinner(true);
-      const data = await getCountry(route.region, route.Contry, lang);
+
+      const data = await getCountry(route.region, route.contry, lang);
       setDdataToDisplay(data);
     } catch (e) {
       console.warn(e);
@@ -37,6 +40,7 @@ const Home = () => {
   };
 
   const fetchContinantData = async () => {
+    // if (!route.region || !route.contry) return;
     try {
       setIsSpinner(true);
       const data = await getContinent(route.region, lang);
@@ -52,6 +56,7 @@ const Home = () => {
     switch (route.type) {
       case 'continant':
         fetchContinantData();
+        break;
       case 'contry':
         fetchContryData();
         break;
