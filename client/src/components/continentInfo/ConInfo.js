@@ -5,6 +5,7 @@ const ConInfo = ({ data, setContry }) => {
     return dupData.map((country) => {
       return (
         <div
+          className="item"
           key={country.countryName}
           onClick={() => {
             setContry(country.countryName);
@@ -17,7 +18,7 @@ const ConInfo = ({ data, setContry }) => {
     });
   };
 
-  return <div>{mapCountrys()}</div>;
+  return <div className="ui celled selection list">{mapCountrys()}</div>;
 };
 
 export default ConInfo;
